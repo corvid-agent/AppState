@@ -1,0 +1,16 @@
+# fledge.toml — project task definitions
+# Docs: https://github.com/CorvidLabs/fledge#task-runner
+# Detected project type: generic (should be swift)
+
+[tasks]
+build = "swift build"
+test = "swift test"
+lint = "swift build 2>&1 | grep -i warning || echo 'No warnings'"
+
+[tasks.ci]
+cmd = "swift build && swift test"
+description = "Run full CI checks"
+
+[lanes.ci]
+description = "Run full CI pipeline"
+steps = ["lint", "test", "build"]
